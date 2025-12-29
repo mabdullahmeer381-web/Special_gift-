@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Favorite Person ❤️</title>
+    <title>For You ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-        body { background-color: #000; color: white; overflow-x: hidden; margin: 0; }
+        body { background-color: #000; color: white; overflow: hidden; margin: 0; }
         .dot-bg { background-image: radial-gradient(#222 1px, transparent 1px); background-size: 25px 25px; }
         .font-love { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
-        .pink-glow { text-shadow: 0 0 10px rgba(236, 72, 153, 0.7); }
     </style>
 </head>
 <body class="dot-bg">
@@ -23,45 +22,37 @@
     <div id="main-container" class="flex flex-col items-center justify-center min-h-screen p-6 text-center">
         
         <div id="screen1">
-            <img src="https://media.tenor.com/7S_E6f99O_8AAAAi/milk-and-mocha.gif" class="w-36 h-36 mx-auto mb-6 rounded-full border-2 border-pink-500 shadow-[0_0_20px_pink]">
-            <h1 class="text-5xl font-love text-pink-500 mb-4 pink-glow">Hey Beautiful</h1>
-            <p class="text-gray-400 mb-8 italic">Turn up your volume and tap below...</p>
-            <button onclick="startApp()" class="bg-pink-600 hover:bg-pink-500 px-10 py-4 rounded-full font-bold shadow-lg transition-transform active:scale-90">Open My Heart ❤️</button>
+            <img src="https://media.tenor.com/7S_E6f99O_8AAAAi/milk-and-mocha.gif" class="w-32 h-32 mx-auto mb-6">
+            <h1 class="text-4xl font-love text-pink-500 mb-2">Hey Beautiful</h1>
+            <button onclick="startApp()" class="mt-8 bg-pink-600 px-10 py-3 rounded-full font-bold shadow-lg">Open My Heart ❤️</button>
         </div>
 
         <div id="screen2" class="hidden w-full max-w-xs">
-            <h2 class="text-xl mb-6 tracking-[0.2em] uppercase text-pink-300">Calculating Cuteness...</h2>
-            <div class="w-full bg-gray-900 h-5 rounded-full border border-white/20 overflow-hidden shadow-inner">
-                <div id="bar" class="bg-gradient-to-r from-pink-500 to-rose-400 h-full w-0 transition-all duration-75"></div>
+            <h2 class="text-xl mb-6 tracking-widest uppercase text-pink-300">Cuteness Analysis...</h2>
+            <div class="w-full bg-gray-900 h-4 rounded-full border border-white/10 overflow-hidden">
+                <div id="bar" class="bg-pink-500 h-full w-0"></div>
             </div>
-            <p id="percent" class="mt-6 text-5xl font-mono text-pink-500 pink-glow">0%</p>
+            <p id="percent" class="mt-4 text-5xl font-mono text-pink-500">0%</p>
         </div>
 
-        <div id="screen3" class="hidden w-full max-w-sm space-y-6">
-            <h2 class="text-4xl font-love text-pink-400 mb-8 pink-glow">Error: Too Much Cuteness! ❤️</h2>
-            
-            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer hover:bg-white/10 transition-all">
-                <span class="text-pink-300">Message #1 🎁</span>
-                <p class="hidden text-xl mt-3 font-love text-white">You are the most beautiful person I know, inside and out.</p>
+        <div id="screen3" class="hidden w-full max-w-sm space-y-4">
+            <h2 class="text-4xl font-love text-pink-400 mb-8">Cuteness Overload! ❤️</h2>
+            <div onclick="reveal(this)" class="p-6 bg-white/5 border border-pink-500/30 rounded-2xl">
+                <span>Tap for Secret #1 🎁</span>
+                <p class="hidden font-love text-xl text-white">You are the most beautiful person I've ever met.</p>
             </div>
-
-            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer hover:bg-white/10 transition-all">
-                <span class="text-pink-300">Message #2 🎁</span>
-                <p class="hidden text-xl mt-3 font-love text-white">Every moment with you feels like a dream come true.</p>
+            <div onclick="reveal(this)" class="p-6 bg-white/5 border border-pink-500/30 rounded-2xl">
+                <span>Tap for Secret #2 🎁</span>
+                <p class="hidden font-love text-xl text-white">I am so lucky to have you in my life.</p>
             </div>
-
-            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer hover:bg-white/10 transition-all">
-                <span class="text-pink-300">Message #3 🎁</span>
-                <p class="hidden text-xl mt-3 font-love text-white">I'm so glad I have you in my life. You're my everything!</p>
-            </div>
+            <p class="text-gray-500 text-sm mt-4 italic">The End ❤️</p>
         </div>
     </div>
 
     <script>
         function startApp() {
-            // PLAY THE MUSIC
-            const music = document.getElementById('bgMusic');
-            music.play().catch(e => console.log("Audio play failed", e));
+            // PLAY MUSIC
+            document.getElementById('bgMusic').play(); 
             
             // SWITCH SCREENS
             document.getElementById('screen1').classList.add('hidden');
@@ -71,26 +62,27 @@
             const bar = document.getElementById('bar');
             const percent = document.getElementById('percent');
             
-            // THE LOADING ANIMATION
             const int = setInterval(() => {
-                if (w >= 120) { // GOES TO 120% LIKE THE VIDEO
+                if (w >= 120) { // GOES TO 120% JUST LIKE THE VIDEO
                     clearInterval(int); 
                     setTimeout(() => {
+                        // AFTER METER FINISHES, SHOW SCREEN 3
                         document.getElementById('screen2').classList.add('hidden');
                         document.getElementById('screen3').classList.remove('hidden');
-                    }, 1000);
+                    }, 800);
                 } else {
                     w++;
-                    if(w <= 100) bar.style.width = w + '%';
+                    // PINK BAR STOPS AT 100, BUT NUMBER GOES TO 120
+                    if(w <= 100) bar.style.width = w + '%'; 
                     percent.innerText = w + '%';
                 }
-            }, 50);
+            }, 50); // METER SPEED
         }
 
         function reveal(el) {
             el.children[0].classList.add('hidden');
             el.children[1].classList.remove('hidden');
-            el.classList.add('bg-pink-500/20', 'border-pink-500', 'scale-105');
+            el.classList.add('bg-pink-500/20', 'border-pink-500');
         }
     </script>
 </body>
