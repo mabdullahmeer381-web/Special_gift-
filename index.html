@@ -7,10 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
-        body { background-color: #000; color: white; overflow: hidden; margin: 0; }
+        body { background-color: #000; color: white; overflow-x: hidden; margin: 0; }
         .dot-bg { background-image: radial-gradient(#222 1px, transparent 1px); background-size: 25px 25px; }
         .font-love { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
+        .pink-glow { text-shadow: 0 0 10px rgba(236, 72, 153, 0.7); }
     </style>
 </head>
 <body class="dot-bg">
@@ -24,7 +25,7 @@
         <div id="screen1">
             <img src="https://media.tenor.com/7S_E6f99O_8AAAAi/milk-and-mocha.gif" class="w-32 h-32 mx-auto mb-6">
             <h1 class="text-4xl font-love text-pink-500 mb-2">Hey Beautiful</h1>
-            <button onclick="startApp()" class="mt-8 bg-pink-600 px-10 py-3 rounded-full font-bold shadow-lg">Open My Heart ❤️</button>
+            <button onclick="startApp()" class="mt-8 bg-pink-600 px-10 py-3 rounded-full font-bold shadow-lg active:scale-95">Open My Heart ❤️</button>
         </div>
 
         <div id="screen2" class="hidden w-full max-w-xs">
@@ -36,23 +37,35 @@
         </div>
 
         <div id="screen3" class="hidden w-full max-w-sm space-y-4">
-            <h2 class="text-4xl font-love text-pink-400 mb-8">Cuteness Overload! ❤️</h2>
-            <div onclick="reveal(this)" class="p-6 bg-white/5 border border-pink-500/30 rounded-2xl">
-                <span>Tap for Secret #1 🎁</span>
-                <p class="hidden font-love text-xl text-white">You are the most beautiful person I've ever met.</p>
+            <h2 class="text-4xl font-love text-pink-400 mb-8 pink-glow">Cuteness Overload! ❤️</h2>
+            
+            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer">
+                <span class="text-pink-300">What is Cuteness? 🎁</span>
+                <p class="hidden text-xl mt-3 font-love text-white italic">"Cuteness is the natural sparkle in your eyes and the way you smile when you're happy."</p>
             </div>
-            <div onclick="reveal(this)" class="p-6 bg-white/5 border border-pink-500/30 rounded-2xl">
-                <span>Tap for Secret #2 🎁</span>
-                <p class="hidden font-love text-xl text-white">I am so lucky to have you in my life.</p>
+
+            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer">
+                <span class="text-pink-300">A thought for you... 🎁</span>
+                <p class="hidden text-xl mt-3 font-love text-white italic">"In a room full of art, I'd still stare at you."</p>
             </div>
-            <p class="text-gray-500 text-sm mt-4 italic">The End ❤️</p>
+
+            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer">
+                <span class="text-pink-300">Another secret... 🎁</span>
+                <p class="hidden text-xl mt-3 font-love text-white italic">"You are my favorite notification."</p>
+            </div>
+
+            <div onclick="reveal(this)" class="p-5 bg-white/5 border border-pink-500/30 rounded-2xl cursor-pointer">
+                <span class="text-pink-300">One last thing... 🎁</span>
+                <p class="hidden text-xl mt-3 font-love text-white italic">"I'm so lucky you're mine. I love you! ❤️"</p>
+            </div>
         </div>
     </div>
 
     <script>
         function startApp() {
-            // PLAY MUSIC
-            document.getElementById('bgMusic').play(); 
+            // PLAY MUSIC (Works on mobile after tap)
+            const music = document.getElementById('bgMusic');
+            music.play();
             
             // SWITCH SCREENS
             document.getElementById('screen1').classList.add('hidden');
@@ -63,26 +76,24 @@
             const percent = document.getElementById('percent');
             
             const int = setInterval(() => {
-                if (w >= 120) { // GOES TO 120% JUST LIKE THE VIDEO
+                if (w >= 120) { // Goes to 120% like the video
                     clearInterval(int); 
                     setTimeout(() => {
-                        // AFTER METER FINISHES, SHOW SCREEN 3
                         document.getElementById('screen2').classList.add('hidden');
                         document.getElementById('screen3').classList.remove('hidden');
                     }, 800);
                 } else {
                     w++;
-                    // PINK BAR STOPS AT 100, BUT NUMBER GOES TO 120
                     if(w <= 100) bar.style.width = w + '%'; 
                     percent.innerText = w + '%';
                 }
-            }, 50); // METER SPEED
+            }, 50);
         }
 
         function reveal(el) {
-            el.children[0].classList.add('hidden');
-            el.children[1].classList.remove('hidden');
-            el.classList.add('bg-pink-500/20', 'border-pink-500');
+            el.children[0].classList.add('hidden'); // Hides the "Tap for..." text
+            el.children[1].classList.remove('hidden'); // Shows the quote/message
+            el.classList.add('bg-pink-500/20', 'border-pink-500', 'scale-105');
         }
     </script>
 </body>
