@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap');
+        
+        body { 
+            background-color: #000; 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            overflow: hidden; 
+            margin: 0;
+        }
+
+        /* The dotted background from the video */
+        .dot-bg {
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .hidden { display: none; }
+
+        .pink-glow {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="dot-bg">
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="app" class="flex flex-col items-center justify-center min-h-screen p-6 text-center">
+        
+        <div id="screen1" class="flex flex-col items-center animate-fadeIn">
+            <div class="relative mb-6">
+                <div class="absolute inset-0 bg-pink-500 blur-2xl opacity-20 rounded-full animate-pulse"></div>
+                <img src="https://media.tenor.com/7S_E6f99O_8AAAAi/milk-and-mocha.gif" class="w-32 h-32 relative z-10" alt="Cute Bears">
+            </div>
+            <h1 style="font-family: 'Dancing Script', cursive;" class="text-5xl text-pink-500 mb-4">Hey Beautiful</h1>
+            <p class="text-gray-400 mb-8 max-w-xs">I have a little surprise for you... Turn your volume up.</p>
+            <button onclick="startApp()" class="bg-pink-600 hover:bg-pink-700 text-white px-10 py-4 rounded-full font-bold shadow-lg transition-all transform hover:scale-105 active:scale-95">
+                Open My Heart ❤️
+            </button>
+        </div>
+
+        <div id="screen2" class="hidden w-full max-w-xs animate-fadeIn">
+            <h2 class="text-lg mb-8 uppercase tracking-widest text-pink-300">Cuteness Analysis...</h2>
+            <div class="w-full bg-gray-900 h-3 rounded-full overflow-hidden border border-white/10">
+                <div id="bar" class="bg-pink-500 h-full w-0 transition-all ease-out"></div>
+            </div>
+            <p id="percent" class="mt-6 text-5xl font-mono font-bold text-white">0%</p>
+            <p id="warning" class="mt-4 text-xs text-pink-500 opacity-0 transition-opacity">⚠️ WARNING: OVERLOAD DETECTED</p>
+        </div>
+
+        <div id="screen3" class="hidden w-full max-w-sm space-y-4 overflow-y-auto max-h-[80vh] pb-10">
+            <h2 style="font-family: 'Dancing Script', cursive;" class="text-3xl text-pink-400 mb-6 text-center">Some things I love about you...</h2>
+            
+            <div onclick="reveal(this)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-pink-500/50 transition duration-500 group">
+                <p class="text-pink-500 group-hover:scale-110 transition">Tap to see ❤️</p>
+                <p class="hidden text-white font-medium">Your smile is the best part of my day.</p>
+            </div>
+
+            <div onclick="reveal(this)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-pink-500/50 transition duration-500 group">
+                <p class="text-pink-500 group-hover:scale-110 transition">Tap to see ❤️</p>
+                <p class="hidden text-white font-medium">How you always know how to make me laugh.</p>
+            </div>
+
+            <div onclick="reveal(this)" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-pink-500/50 transition duration-500 group">
+                <p class="text-pink-500 group-hover:scale-110 transition">Tap to see ❤️</p>
+                <p class="hidden text-white font-medium">The way you look when you're focused.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startApp() {
+            // Start Music
+            const music = document.getElementById('bgMusic');
+            music.play().catch(e => console.log("Audio play blocked by browser"));
+
+            // Switch Screen
+            document.getElementById('screen1').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
+            
+            runMeter();
+        }
+
+        function runMeter() {
+            let width = 0;
+            const bar = document.getElementById('bar');
+            const percent = document.getElementById('percent');
+            const warning = document.getElementById('warning');
+            
+            const interval = setInterval(() => {
+                if (width >= 120) { // Goes to 120% like the video
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('screen2').classList.add('hidden');
+                        document.getElementById('screen3').classList.remove('hidden');
+                    }, 1500);
+                } else {
+                    width++;
+                    if(width <= 100) bar.style.width = width + '%';
+                    percent.innerText = width + '%';
+                    if(width > 100) warning.style.opacity = "1";
+                }
+            }, 40);
+        }
+
+        function reveal(el) {
+            el.children[0].classList.add('hidden');
+            el.children[1].classList.remove('hidden');
+            el.classList.add('pink-glow', 'border-pink-500/50');
+        }
+    </script>
+</body>
+</html>
